@@ -9,7 +9,7 @@ commands:
     steps:
       - run: npm i
       - run:
-          name: on error
+          name: install_failed
           command: echo "[X] Error!! Could not install dependencies"
           when: on_fail
 
@@ -19,7 +19,7 @@ commands:
     steps:
       - run: npm run lint
       - run:
-          name: on error
+          name: lint_error
           command: echo "[X] Code linting failed!!"
           when: on_fail
 
@@ -28,7 +28,7 @@ commands:
     steps:
       - run: npm run test
       - run:
-          name: on error
+          name: test_fail
           command: echo "[X] Some tests were not passed!!"
           when: on_fail
 
@@ -37,7 +37,7 @@ commands:
     steps:
       - run: npm audit
       - run:
-          name: on error
+          name: audit fail
           command: echo "[X] Code audit failed!!"
           when: on_fail
 
@@ -66,9 +66,6 @@ jobs:
       - install_dependencies
       - audit_code_files
 
-
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   build_test_analyze_code:
     jobs:
